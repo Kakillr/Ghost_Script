@@ -232,6 +232,8 @@
 <!-- عرض السكربتات -->
 <div id="script-container"></div>
 
+
+
 <!-- أزرار إدارة المابات والسكربتات (للمطور فقط) -->
 <button id="admin-button" onclick="toggleAdminPanel()">👑 المطور</button>
 
@@ -301,6 +303,21 @@ function registerOrLogin() {
     users[user] = pass;
     localStorage.setItem("users", JSON.stringify(users));
   }
+function selectLanguage(lang) {
+  localStorage.setItem('lang', lang);  // تخزين اللغة المختارة
+  document.getElementById('language-select').style.display = 'none'; // إخفاء اختيار اللغة
+
+  // إظهار المابات
+  document.getElementById('map-container').style.display = 'block';
+
+  // إذا كان المستخدم هو المطور، إظهار زر الإدارة
+  if (currentUser === ownerUser) {
+    document.getElementById('admin-button').style.display = 'block';
+  }
+
+  // تحميل وعرض المابات
+  loadMoreMaps();
+}
 
   // تسجيل الدخول
   localStorage.setItem("username", user);
