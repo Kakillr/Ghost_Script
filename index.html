@@ -230,6 +230,20 @@
   <button class="btn" onclick="selectLanguage('en')">English</button>
 </div>
 
+<script>
+  function selectLanguage(lang) {
+    localStorage.setItem('lang', lang);  // تخزين اللغة المختارة
+    document.getElementById('language-select').style.display = 'none';  // إخفاء اختيار اللغة
+
+    // هنا مثلاً عرض محتوى بعد اختيار اللغة أو تحميل الصفحة المناسبة
+    // مثال بسيط:
+    alert('تم اختيار اللغة: ' + (lang === 'ar' ? 'العربية' : 'English'));
+
+    // يمكنك استدعاء دالة لعرض المحتوى الخاص بهذه اللغة
+    // showMaps(lang); أو أي دالة أخرى حسب الكود لديك
+  }
+</script>
+
 <!-- عرض المابات -->
 <div id="map-container">
   <div class="map-grid" id="maps"></div>
