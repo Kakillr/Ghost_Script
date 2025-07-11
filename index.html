@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>مابات وسكربتات</title>
   <style>
     body {
@@ -11,7 +11,7 @@
       background-color: #000;
       color: #fff;
     }
-    #language-select, #map-container, #script-container, #manage-maps, #manage-scripts, #auth-section {
+    #auth-section, #language-select, #map-container, #script-container, #manage-maps, #manage-scripts {
       display: none;
       padding: 20px;
       text-align: center;
@@ -33,6 +33,7 @@
       cursor: pointer;
       box-shadow: 0 0 10px #fff;
       transition: 0.3s;
+      border-radius: 12px;
     }
     .btn:hover {
       transform: scale(1.05);
@@ -46,10 +47,17 @@
     }
     .map-box {
       position: relative;
-      background: #444;
+      background: #222;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 0 15px #ddd;
+      box-shadow: 0 0 15px #0ff;
+      cursor: pointer;
+      transition: 0.3s;
+      user-select: none;
+    }
+    .map-box:hover {
+      box-shadow: 0 0 30px #0ff;
+      transform: scale(1.05);
     }
     .map-box img {
       width: 100%;
@@ -62,7 +70,9 @@
       width: 100%;
       text-align: center;
       font-weight: bold;
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0,0,0,0.7);
+      color: #0ff;
+      padding: 5px 0;
     }
     .load-more {
       display: block;
@@ -70,7 +80,8 @@
       background-color: #111;
       padding: 10px 30px;
       border-radius: 10px;
-      box-shadow: 0 0 10px #888;
+      box-shadow: 0 0 10px #0ff;
+      cursor: pointer;
     }
     .script-box {
       background: #111;
@@ -78,6 +89,12 @@
       margin-bottom: 20px;
       border-radius: 10px;
       box-shadow: 0 0 12px #0ff;
+      text-align: right;
+      direction: rtl;
+    }
+    .script-box h3 {
+      margin: 0 0 10px 0;
+      color: #0ff;
     }
     .script-box pre {
       background: #222;
@@ -85,63 +102,110 @@
       border-radius: 8px;
       overflow-x: auto;
       user-select: all;
+      cursor: pointer;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      color: #fff;
+      transition: background-color 0.3s, color 0.3s;
     }
-    .admin-btn {
+    .script-box pre:hover {
+      background: #0ff;
+      color: #000;
+    }
+    .script-box small {
+      display: block;
+      margin-top: 5px;
+      color: #ccc;
+    }
+    #admin-button {
       display: none;
       position: fixed;
       bottom: 20px;
       left: 20px;
       background-color: #222;
-      padding: 10px;
-      border: 2px solid #fff;
-      box-shadow: 0 0 10px #0ff;
+      padding: 12px 20px;
+      border: 2px solid #0ff;
+      border-radius: 12px;
+      color: #0ff;
+      cursor: pointer;
+      box-shadow: 0 0 15px #0ff;
+      font-weight: bold;
+      user-select: none;
+    }
+    #manage-maps, #manage-scripts {
+      background: #111;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      box-shadow: 0 0 20px #0ff;
+      color: #0ff;
+      text-align: right;
+      direction: rtl;
+      user-select: none;
+    }
+    #manage-maps h3, #manage-scripts h3 {
+      margin-top: 0;
     }
     input, textarea {
-      display: block;
-      width: 90%;
-      margin: 10px auto;
+      width: 95%;
       padding: 10px;
+      margin: 10px auto;
+      border-radius: 10px;
       border: none;
-      border-radius: 8px;
+      resize: vertical;
+      background: #222;
+      color: #0ff;
+      font-family: monospace;
+    }
+    textarea {
+      min-height: 80px;
     }
   </style>
 </head>
 <body>
 
+<!-- تسجيل الدخول -->
 <div id="auth-section">
   <h2>تسجيل دخول</h2>
-  <input type="text" id="username-input" placeholder="ادخل اسم المستخدم">
-  <button class="btn" onclick="login()">تسجيل دخول</button>
+  <input type="text" id="username-input" placeholder="ادخل اسم المستخدم" />
+  <input type="password" id="password-input" placeholder="ادخل كلمة المرور" />
+  <button class="btn" onclick="registerOrLogin()">دخول / إنشاء حساب</button>
   <button class="btn" onclick="guestLogin()">دخول كضيف</button>
+  <button class="btn" onclick="alert('قريباً: تسجيل دخول عبر Google')">🔐 تسجيل دخول Google</button>
 </div>
 
+<!-- اختيار اللغة -->
 <div id="language-select">
   <h1>Choose | اختار</h1>
-  <button class="btn" onclick="showMaps()">العربية</button>
-  <button class="btn" onclick="showMaps()">English</button>
+  <button class="btn" onclick="selectLanguage('ar')">العربية</button>
+  <button class="btn" onclick="selectLanguage('en')">English</button>
 </div>
 
+<!-- عرض المابات -->
 <div id="map-container">
   <div class="map-grid" id="maps"></div>
-  <button class="btn load-more" onclick="loadMoreMaps()">المزيد</button>
+  <button class="load-more btn" onclick="loadMoreMaps()">المزيد</button>
 </div>
 
+<!-- عرض السكربتات -->
 <div id="script-container"></div>
 
-<button id="admin-button" class="admin-btn" onclick="toggleAdminPanel()">👑 المطور</button>
+<!-- أزرار إدارة المابات والسكربتات (للمطور فقط) -->
+<button id="admin-button" onclick="toggleAdminPanel()">👑 المطور</button>
 
 <div id="manage-maps">
   <h3>إضافة / حذف ماب</h3>
-  <input type="text" id="mapImg" placeholder="رابط صورة الماب">
-  <input type="text" id="mapName" placeholder="اسم الماب">
+  <input type="text" id="mapImg" placeholder="رابط صورة الماب" />
+  <input type="text" id="mapName" placeholder="اسم الماب" />
   <button class="btn" onclick="addMap()">إضافة الماب</button>
   <button class="btn" onclick="removeMap()">🗑 حذف الماب</button>
 </div>
 
 <div id="manage-scripts">
   <h3>إضافة / حذف سكربت</h3>
-  <input type="text" id="scriptMap" placeholder="اسم الماب">
-  <input type="text" id="scriptName" placeholder="اسم السكربت">
+  <input type="text" id="scriptMap" placeholder="اسم الماب" />
+  <input type="text" id="scriptName" placeholder="اسم السكربت" />
   <textarea id="scriptCode" placeholder="نص السكربت"></textarea>
   <textarea id="scriptDesc" placeholder="وصف السكربت"></textarea>
   <button class="btn" onclick="addScriptToMap()">إضافة السكربت</button>
@@ -150,25 +214,32 @@
 
 <script>
   const ownerUser = "Ghost_KILLR";
-  const reservedUsers = JSON.parse(localStorage.getItem("reservedUsers") || "[]");
+  const users = JSON.parse(localStorage.getItem("users") || '{}');
   let currentUser = localStorage.getItem("username");
+  let allMaps = JSON.parse(localStorage.getItem('maps') || '[]');
+  let allScripts = JSON.parse(localStorage.getItem('scripts') || '{}');
+  let shown = 0;
+  let currentLang = 'ar';
 
+  // إظهار واجهة تسجيل الدخول أو تهيئة التطبيق
   if (!currentUser) {
     document.getElementById("auth-section").style.display = "block";
   } else {
     initApp();
   }
 
-  function login() {
-    const user = document.getElementById("username-input").value;
-    if (reservedUsers.includes(user)) {
-      alert("هذا الاسم مستخدم مسبقًا.");
+  function registerOrLogin() {
+    const user = document.getElementById("username-input").value.trim();
+    const pass = document.getElementById("password-input").value;
+    if (!user || !pass) return alert("يرجى ملء كل الحقول");
+    if (users[user]) {
+      if (users[user] !== pass) return alert("كلمة المرور غير صحيحة");
     } else {
-      reservedUsers.push(user);
-      localStorage.setItem("reservedUsers", JSON.stringify(reservedUsers));
-      localStorage.setItem("username", user);
-      location.reload();
+      users[user] = pass;
+      localStorage.setItem("users", JSON.stringify(users));
     }
+    localStorage.setItem("username", user);
+    location.reload();
   }
 
   function guestLogin() {
@@ -176,8 +247,12 @@
     location.reload();
   }
 
+  function logout() {
+    localStorage.removeItem("username");
+    location.reload();
+  }
+
   function initApp() {
-    const currentUser = localStorage.getItem("username");
     document.getElementById("auth-section").style.display = "none";
     document.getElementById("language-select").style.display = "flex";
     if (currentUser === ownerUser) {
@@ -185,13 +260,10 @@
     }
   }
 
-  let allMaps = JSON.parse(localStorage.getItem('maps')) || [];
-  let allScripts = JSON.parse(localStorage.getItem('scripts')) || {};
-  let shown = 0;
-
-  function showMaps() {
-    document.getElementById('language-select').style.display = 'none';
-    document.getElementById('map-container').style.display = 'block';
+  function selectLanguage(lang) {
+    currentLang = lang;
+    document.getElementById("language-select").style.display = "none";
+    document.getElementById("map-container").style.display = "block";
     loadMoreMaps();
   }
 
@@ -201,14 +273,45 @@
     mapsToShow.forEach(map => {
       const box = document.createElement('div');
       box.className = 'map-box';
+      box.title = `اضغط لعرض السكربتات - ${map.name}`;
       box.innerHTML = `
-        <img src="${map.img}" onclick="showScripts('${map.name}')">
+        <img src="${map.img}" alt="${map.name}" />
         <div class="title">${map.name}</div>
       `;
+
+      // الحدث الرئيسي لفتح السكربتات
+      box.addEventListener('click', () => showScripts(map.name));
+
+      // حذف الماب عن طريق الضغط المطول (للمطور فقط)
+      if (currentUser === ownerUser) {
+        let pressTimer;
+        box.addEventListener('mousedown', e => {
+          e.preventDefault();
+          pressTimer = setTimeout(() => {
+            if (confirm(`هل تريد حذف الماب "${map.name}"؟`)) {
+              allMaps = allMaps.filter(m => m.name !== map.name);
+              delete allScripts[map.name];
+              localStorage.setItem('maps', JSON.stringify(allMaps));
+              localStorage.setItem('scripts', JSON.stringify(allScripts));
+              alert('تم حذف الماب وكل سكربتاته.');
+              location.reload();
+            }
+          }, 800);
+        });
+        box.addEventListener('mouseup', e => {
+          clearTimeout(pressTimer);
+        });
+        box.addEventListener('mouseleave', e => {
+          clearTimeout(pressTimer);
+        });
+      }
+
       container.appendChild(box);
     });
     shown += 10;
-    if (shown >= allMaps.length) document.querySelector('.load-more').style.display = 'none';
+    if (shown >= allMaps.length) {
+      document.querySelector('.load-more').style.display = 'none';
+    }
   }
 
   function showScripts(mapName) {
@@ -217,98 +320,140 @@
     scriptContainer.style.display = 'block';
     scriptContainer.innerHTML = `<h2>${mapName}</h2>`;
     const scripts = allScripts[mapName] || [];
-    scripts.forEach(script => {
-      scriptContainer.innerHTML += `
-        <div class="script-box">
+    if (scripts.length === 0) {
+      scriptContainer.innerHTML += '<p>لا يوجد سكربتات لهذا الماب.</p>';
+    } else {
+      scripts.slice(0,5).forEach(script => {
+        const div = document.createElement('div');
+        div.className = 'script-box';
+        div.innerHTML = `
           <h3>${script.name}</h3>
-          <pre onclick="copyScript(this)">${script.code}</pre>
+          <pre title="انقر للنسخ">${script.code}</pre>
           <small>${script.desc}</small>
-        </div>
-      `;
-    });
+        `;
+        // عند النقر على السكربت للنسخ
+        div.querySelector('pre').addEventListener('click', e => {
+          copyScript(e.target);
+        });
+
+        // إذا كان المطور، يمكنه حذف السكربت عبر الضغط المطول
+        if(currentUser === ownerUser){
+          let pressTimer;
+          div.addEventListener('mousedown', e => {
+            e.preventDefault();
+            pressTimer = setTimeout(() => {
+              if(confirm(`هل تريد حذف السكربت "${script.name}"؟`)){
+                allScripts[mapName] = allScripts[mapName].filter(s => s.name !== script.name);
+                localStorage.setItem('scripts', JSON.stringify(allScripts));
+                alert('تم حذف السكربت.');
+                location.reload();
+              }
+            }, 1000);
+          });
+          div.addEventListener('mouseup', e => clearTimeout(pressTimer));
+          div.addEventListener('mouseleave', e => clearTimeout(pressTimer));
+        }
+
+        scriptContainer.appendChild(div);
+      });
+    }
+
+    // زر للعودة للمابات
+    const backBtn = document.createElement('button');
+    backBtn.className = 'btn';
+    backBtn.textContent = 'عودة للمابات';
+    backBtn.onclick = () => {
+      scriptContainer.style.display = 'none';
+      document.getElementById('map-container').style.display = 'block';
+      // إعادة تعيين السكربتات للتحميل من جديد
+      scriptContainer.innerHTML = '';
+    };
+    scriptContainer.appendChild(backBtn);
+
+    // إذا كان المطور، أظهر زر إضافة السكربت
+    if(currentUser === ownerUser){
+      const addScriptBtn = document.createElement('button');
+      addScriptBtn.className = 'btn';
+      addScriptBtn.textContent = 'إضافة سكربت جديد';
+      addScriptBtn.onclick = () => {
+        document.getElementById('manage-scripts').style.display = 'block';
+        document.getElementById('manage-maps').style.display = 'none';
+      };
+      scriptContainer.appendChild(addScriptBtn);
+    }
   }
 
-  function copyScript(pre) {
+  function copyScript(preElement) {
     const range = document.createRange();
-    range.selectNodeContents(pre);
+    range.selectNodeContents(preElement);
     const selection = window.getSelection();
     selection.removeAllRanges();
     selection.addRange(range);
-    document.execCommand("copy");
-    alert("تم نسخ السكربت!");
+    try {
+      document.execCommand('copy');
+      alert('تم نسخ السكربت!');
+    } catch {
+      alert('فشل النسخ، حاول مرة أخرى.');
+    }
+    selection.removeAllRanges();
   }
 
   function toggleAdminPanel() {
-    const user = localStorage.getItem("username");
-    if (user !== ownerUser) return alert("ليس لديك صلاحية!");
-    document.getElementById('manage-maps').style.display = 'block';
-    document.getElementById('manage-scripts').style.display = 'block';
+    if(currentUser !== ownerUser) {
+      alert('ليس لديك صلاحية الوصول!');
+      return;
+    }
+    const manageMaps = document.getElementById('manage-maps');
+    const manageScripts = document.getElementById('manage-scripts');
+    if(manageMaps.style.display === 'block') {
+      manageMaps.style.display = 'none';
+      manageScripts.style.display = 'none';
+    } else {
+      manageMaps.style.display = 'block';
+      manageScripts.style.display = 'block';
+    }
   }
 
   function addMap() {
-    const img = document.getElementById('mapImg').value;
-    const name = document.getElementById('mapName').value;
+    const img = document.getElementById('mapImg').value.trim();
+    const name = document.getElementById('mapName').value.trim();
+    if(!img || !name) return alert('يرجى ملء كل الحقول.');
+    if(allMaps.find(m => m.name === name)) return alert('الماب موجود مسبقاً.');
     allMaps.push({img, name});
     localStorage.setItem('maps', JSON.stringify(allMaps));
-    alert('تمت إضافة الماب. أعد تحميل الصفحة.');
+    alert('تمت إضافة الماب. يرجى إعادة تحميل الصفحة.');
   }
 
   function removeMap() {
-    const name = document.getElementById('mapName').value;
+    const name = document.getElementById('mapName').value.trim();
+    if(!name) return alert('ادخل اسم الماب للحذف.');
     allMaps = allMaps.filter(m => m.name !== name);
     delete allScripts[name];
     localStorage.setItem('maps', JSON.stringify(allMaps));
     localStorage.setItem('scripts', JSON.stringify(allScripts));
-    alert('تم حذف الماب وكل سكربتاته');
+    alert('تم حذف الماب وكل سكربتاته. يرجى إعادة تحميل الصفحة.');
   }
 
   function addScriptToMap() {
-    const map = document.getElementById('scriptMap').value;
-    const name = document.getElementById('scriptName').value;
-    const code = document.getElementById('scriptCode').value;
-    const desc = document.getElementById('scriptDesc').value;
-    if (!allScripts[map]) allScripts[map] = [];
-    allScripts[map].push({name, code, desc});
-    localStorage.setItem('scripts', JSON.stringify(allScripts));
-    alert('تمت إضافة السكربت.');
-  }
+  const map = document.getElementById('scriptMap').value.trim();
+  const name = document.getElementById('scriptName').value.trim();
+  const code = document.getElementById('scriptCode').value.trim();
+  const desc = document.getElementById('scriptDesc').value.trim();
+  if(!map || !name || !code) return alert('يرجى ملء كل الحقول باستثناء الوصف يمكن تركه فارغ.');
+  
+  if(!allScripts[map]) allScripts[map] = [];
 
-  function removeScriptFromMap() {
-    const map = document.getElementById('scriptMap').value;
-    const name = document.getElementById('scriptName').value;
-    if (!allScripts[map]) return alert("لا توجد سكربتات لهذا الماب");
-    allScripts[map] = allScripts[map].filter(s => s.name !== name);
-    localStorage.setItem('scripts', JSON.stringify(allScripts));
-    alert('تم حذف السكربت.');
-  }
-</script>
-</body>
+  // تحقق إذا كان السكربت موجود بالفعل بالاسم نفسه ضمن نفس الماب
+  const exists = allScripts[map].some(s => s.name === name);
+  if(exists) return alert('اسم السكربت موجود مسبقًا لهذا الماب.');
 
-
-
-<!-- أضيف زر تسجيل خروج، ودعماً مستقبليًا لتسجيل دخول Google -->
-
-<!-- ... باقي الكود أعلاه يبقى كما هو ... -->
-
-<div id="auth-section">
-  <h2>تسجيل دخول</h2>
-  <input type="text" id="username-input" placeholder="ادخل اسم المستخدم">
-  <button class="btn" onclick="login()">تسجيل دخول</button>
-  <button class="btn" onclick="guestLogin()">دخول كضيف</button>
-  <!-- زر لتسجيل الدخول عبر Google (قادم لاحقاً) -->
-  <button class="btn" onclick="alert('قريباً: تسجيل دخول عبر Google')">🔐 تسجيل دخول Google</button>
-</div>
-
-<!-- زر تسجيل خروج -->
-<button class="btn" style="position: fixed; top: 20px; left: 20px;" onclick="logout()">🚪 تسجيل خروج</button>
-
-<script>
-  // ... الكود السابق يبقى كما هو
-
-  function logout() {
-    localStorage.removeItem("username");
-    location.reload();
-  }
-</script>
-
-</html>
+  allScripts[map].push({name, code, desc});
+  localStorage.setItem('scripts', JSON.stringify(allScripts));
+  alert('تمت إضافة السكربت.');
+  
+  // تفريغ الحقول بعد الإضافة
+  document.getElementById('scriptMap').value = '';
+  document.getElementById('scriptName').value = '';
+  document.getElementById('scriptCode').value = '';
+  document.getElementById('scriptDesc').value = '';
+}
