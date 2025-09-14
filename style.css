@@ -1,6 +1,29 @@
 @import url(https://fonts.googleapis.com/css2?family=poppins:wght@700display=swap);
     
-    
+    /* موبايل (شاشات صغيرة) */
+@media (max-width: 767px) {
+  body {
+    /* ستايل الموبايل */
+    font-size: 14px;
+  }
+}
+
+/* تابلت */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    /* ستايل التابلت */
+    font-size: 16px;
+  }
+}
+
+/* لابتوب / كمبيوتر */
+@media (min-width: 1024px) {
+  body {
+    /* ستايل الكمبيوتر */
+    font-size: 18px;
+  }
+}
+
     * {
       scroll-behavior: smooth;
       box-sizing: border-box;
@@ -232,3 +255,4 @@ text-decoration: none;
 
 
 }
+
