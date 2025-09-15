@@ -1,126 +1,98 @@
-@import url(https://fonts.googleapis.com/css2?family=poppins:wght@700display=swap);
-/* 📱 موبايل (شاشات صغيرة) */
-@media (max-width: 767px) {
-  body {
-    font-size: 14px;     /* حجم الخط */
-    padding: 10px;       /* البادنك */
-    margin: 5px;         /* السياز */
-  }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+/* الأساسيات */
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-/* 📟 تابلت */
-@media (min-width: 768px) and (max-width: 1023px) {
-  body {
-    font-size: 16px;
-    padding: 20px;
-    margin: 10px;
-  }
+body {
+  background-color: black;
+  color: #ddd;
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+  text-align: center;
+  animation: fadeIn 1.5s ease-out;
 }
 
-/* 💻 لابتوب / كمبيوتر */
-@media (min-width: 1024px) {
-  body {
-    font-size: 18px;
-    padding: 30px;
-    margin: 15px;
-  }
+/* دخول سلس */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-    * {
-      scroll-behavior: smooth;
-      box-sizing: border-box;
-    
-    }
+/* الهيدر */
+.header {
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  flex-wrap: wrap; /* يخلي العناصر تنزل تحت لو الشاشة صغيرة */
+}
 
+.logo {
+  width: 50px;
+  border-radius: 15px;
+  max-width: 100%;
+}
 
-
-    body  {
-      background-color: black;
-      color: #ddd;
-      font-family: 'Cairo', sans-serif;
-      margin: 0;
-      animation: fadeIn 1.5s ease-out;
-      text-align: center;
-    }
-     
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .header  {
-      background-color:black ;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-    }
-    .logo{
-        width: 50px;
-       border: none;
-      border-radius: 15px;
-    }
-
-    hr {
-      opacity: 10%;
-    }
-
-  /* الروابط داخل الهيدر */
+/* روابط الهيدر */
 .header-links a {
-color: #ddd;
-padding: 7px 15px;
-text-emphasis: none;
-text-decoration: none;
+  color: #ddd;
+  padding: 7px 15px;
+  text-decoration: none;
 }
 
+hr { opacity: 10%; }
 
-
- .landing-page .content {
+/* الصفحة الرئيسية */
+.landing-page .content {
   background-color: #1a1a1a;
-  padding: 30px;
+  padding: 20px;
   margin: 30px auto;
   border-radius: 20px;
   width: 90%;
-  max-width: 800px;
-  box-shadow: 0 0 25px rgba(150, 150, 150, 0.2);
+  max-width: 1000px;
   display: flex;
+  flex-wrap: wrap; /* مهم حتى تنزل العناصر تحت ببعض الشاشات */
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 30px;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* الحركة سلسة عند الدخول والخروج */
+  box-shadow: 0 0 25px rgba(150,150,150,0.2);
 }
 
-
 .landing-page .text1 {
-  flex: 1;
-  max-width: 60%;
-  font-weight: bold;
+  flex: 1 1 300px;
+  max-width: 600px;
   display: flex;
-  flex-direction: column; /* يخلي العناصر تحت بعض */
-  gap: 20px; /* مسافة بين النص و البحث */
+  flex-direction: column;
+  gap: 20px;
+  font-weight: bold;
 }
 
 .landing-page .img-2 img {
-  width: 200px;         
-  border-radius: 20px; 
+  width: 200px;
+  max-width: 100%;
+  border-radius: 20px;
   object-fit: cover;
 }
 
+/* الأزرار */
 .hack-btn {
-    background-color: #000000;
-    color: #3a3a3a;
-    padding: auto;
-    font-size: 15px;
-    border: none;
-    border-radius: 22px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100px;
-    text-align: center;
-    padding: 7px 15px;
+  position: relative;
+  background-color: #000;
+  color: #3a3a3a;
+  font-size: 15px;
+  border: none;
+  border-radius: 22px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  padding: 7px 15px;
 }
-/* دائرة التوهج */
+
 .hack-btn::before {
   content: "";
   position: absolute;
@@ -137,26 +109,21 @@ text-decoration: none;
 }
 
 .hack-btn:hover::before {
-  width: 70px;   /* ← قللنا الحجم */
-  height: 70px;  /* ← قللنا الحجم */
+  width: 70px;
+  height: 70px;
   opacity: 1;
 }
 
 .hack-btn:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s;
   color: white;
+  box-shadow: 0 0 25px rgba(192,192,192,0.6);
+  transform: scale(1.05);
 }
-
-.wide-btn {
-  width: 340px; /* = 160 + 160 + 20px gap */
-}
-
-
 
 .search {
-display: flex;
-  gap: 10px; /* مسافة بين الحقل والزر */
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .search input {
@@ -166,36 +133,14 @@ display: flex;
   outline: none;
   height: 35px;
   padding: 0 15px;
+  min-width: 150px;
 }
 
-.hack-btn:hover {
-  box-shadow: 0 0 25px rgba(192,192,192,0.6);
-  transform: scale(1.08);
-}
-
-.wide-search {
-  width: 340px; /* = 160 + 160 + 20px gap */
-}
-
-.btn {
-  background-color: #000000;
-  padding: 10px 20px;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-}
-    .btn :hover {
-      box-shadow: 0 0 30px rgba(192,192,192,0.5);
-      transform: scale(1.05);
-    }
-
+/* أقسام الموقع */
 .delta-section {
-  margin: 0;
   padding: 40px 20px;
   background-color: black;
   color: #ddd;
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .delta-title {
@@ -207,7 +152,7 @@ display: flex;
 
 .delta-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
   gap: 20px;
 }
 
@@ -218,14 +163,11 @@ display: flex;
   transition: transform 0.4s ease;
 }
 
-.delta-card:hover {
-  transform: scale(1.05);
-}
+.delta-card:hover { transform: scale(1.05); }
 
 .delta-content h3 {
   font-size: 1.2em;
   margin-bottom: 10px;
-  font-weight: bold;
   color: #fff;
 }
 
@@ -235,53 +177,27 @@ display: flex;
   color: #ccc;
 }
 
-.delta-link {
-  color: #1e90ff;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
+/* الصور عالية الدقة */
+.logo-img-1x { display: inline-block; }
+.logo-img-2x { display: none; }
 
-.delta-link svg {
-  fill: currentColor;
-}
-
-
-.About {
-color: #ddd;
-padding: 7px 15px;
-text-emphasis: none;
-text-decoration: none;
-
-
-}
-
-
-/* تنسيقات عادية */
-.logo-img-1x {
-  display: inline-block;
-}
-
-.logo-img-2x {
-  display: none;
-}
-
-/* في النهاية - تنسيقات خاصة بالشاشات عالية الدقة */
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
-       only screen and (min--moz-device-pixel-ratio: 2),
-       only screen and (-o-min-device-pixel-ratio: 2/1),
        only screen and (min-device-pixel-ratio: 2),
-       only screen and (min-resolution: 192dpi),
        only screen and (min-resolution: 2dppx) {
-
-    .logo-img-1x {
-        display: none;
-    }
-
-    .logo-img-2x {
-        display: inline-block;
-    }
+  .logo-img-1x { display: none; }
+  .logo-img-2x { display: inline-block; }
 }
 
+/* استجابة حسب أحجام الشاشة */
+@media (max-width: 767px) {
+  body { font-size: 14px; }
+  .landing-page .content { flex-direction: column; }
+}
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  body { font-size: 16px; }
+}
+
+@media (min-width: 1024px) {
+  body { font-size: 18px; }
+}
