@@ -1,26 +1,28 @@
 @import url(https://fonts.googleapis.com/css2?family=poppins:wght@700display=swap);
-    
-    /* موبايل (شاشات صغيرة) */
+/* 📱 موبايل (شاشات صغيرة) */
 @media (max-width: 767px) {
   body {
-    /* ستايل الموبايل */
-    font-size: 14px;
+    font-size: 14px;     /* حجم الخط */
+    padding: 10px;       /* البادنك */
+    margin: 5px;         /* السياز */
   }
 }
 
-/* تابلت */
+/* 📟 تابلت */
 @media (min-width: 768px) and (max-width: 1023px) {
   body {
-    /* ستايل التابلت */
     font-size: 16px;
+    padding: 20px;
+    margin: 10px;
   }
 }
 
-/* لابتوب / كمبيوتر */
+/* 💻 لابتوب / كمبيوتر */
 @media (min-width: 1024px) {
   body {
-    /* ستايل الكمبيوتر */
     font-size: 18px;
+    padding: 30px;
+    margin: 15px;
   }
 }
 
@@ -255,4 +257,5 @@ text-decoration: none;
 
 
 }
+
 
