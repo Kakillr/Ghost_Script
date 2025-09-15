@@ -29,8 +29,7 @@
     * {
       scroll-behavior: smooth;
       box-sizing: border-box;
-      margin: auto;
-      padding: auto;
+    
     }
 
 
@@ -257,5 +256,6 @@ text-decoration: none;
 
 
 }
+
 
 
