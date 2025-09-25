@@ -146,6 +146,7 @@ text-decoration: none;
   transform: scale(1.05);
   transition: transform 0.3s;
   color: white;
+  scale:1.05 ;
 }
 
 .wide-btn {
@@ -165,14 +166,6 @@ text-decoration: none;
       box-shadow: 0 0 30px rgba(192,192,192,0.5);
       transform: scale(1.05);
     }
-
-
-
-
-
-
-
-
 
 .delta-section {
   margin: 0;
@@ -262,7 +255,122 @@ text-decoration: none;
         display: inline-block;
     }
 }
+.img-2 {
+margin-top: 10px;
+width: 100%;
+height: auto;
+border-radius: 10px;
+transition:  .3s ease;
+}
+
+.img-2:hover {
+scale:1.05 ;
+}
 
 
+ .card {
+      background: black;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      max-width: 95%;
+      text-align: center;
+    }
+
+        #content { transition: opacity .3s; }
+    #ios-panel { display: none; flex-direction: column; gap: 10px; } 
+    #android-panel {
+      display: none;   /* ⬅ هنا التصحيح */
+      flex-direction: column;
+    }
+    .link-btn {
+      display: block;
+      text-decoration: none;
+      background: rgba(25, 25, 25, 0.1);
+      padding: 12px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: width 0.4s, height 0.4s, opacity 0.4s;
+      color: #3a3a3a;
+    }
+.link-btn:hover {
+   transform: scale(1.05);
+  transition: transform 0.3s;
+  color: #0ff;
+  scale:1.05 ;
+}
+    .link-btn:active {
+      transform: translate(2px, 2px);}
+
+
+
+    .toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #ffeb3b; /* أصفر */
+      color: #000;
+      text-align: center;
+      border-radius: 8px;
+      padding: 16px;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 9999;
+    }
+
+    .toast.show {
+      visibility: visible;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+    }
+
+    @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+    }
+
+
+
+
+    .landing-page {
+  padding: 50px;
+}
+
+.content-wrapper {
+  align-items: center; /* لتوسيط النص والصورة عموديًا */
+  justify-content: space-between; /* مسافة متساوية بين النص والصورة */
+  gap: 20px; /* مسافة بسيطة بينهم */
+}
+
+.text1 {
+  flex: 1; /* النص ياخذ المساحة الأكبر */
+}
+
+.img-2 img {
+  max-width: 300px; /* حجم الصورة */
+  width: 100%;
+  height: auto;
+}
+
+#Ghost_KILLR,
+#Executors,
+#Why {
+  color: #0ff;
+}
+
+#iPhone {
+  color: #A2AAAD;
+}
+
+#Android {
+  color: #3DDC84;
+}
 
 .tele { display: flex; align-items: center; justify-content: space-between; width: 45px; height: 40px; border: none; border-radius: 50%; cursor: pointer; position: relative; overflow: hidden; transition-duration: 0.3s; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199); background-color: black; } .sign { width: 100%; transition-duration: 0.3s; display: flex; align-items: center; justify-content: center; } .sign svg { width: 25px; } .sign svg path { fill: white; } .text { position: absolute; width: 0%; opacity: 0; color: white; font-size: 1.2em; font-weight: 600; transition-duration: 0.3s; } .tele:hover .text { opacity: 1; right: 10%; width: 70%; transition-duration: 0.3s; padding-right: 10px; } .tele:hover { background-color: #3a3a3a; width: 150px; border-radius: 40px; transition-duration: 0.3s; } .tele:hover .sign { width: 30%; transition-duration: 0.3s; padding-left: 10px; } .tele:active { transform: translate(2px, 2px); }
